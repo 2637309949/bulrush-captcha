@@ -4,7 +4,7 @@
  * @create date 2019-01-12 22:46:31
  * @modify date 2019-01-12 22:46:31
  * @desc [bulrush captcha plugin]
- * DependOn session [plugins]
+ * DependOn cookies [plugins]
  */
 
 package captcha
@@ -32,7 +32,7 @@ func (c *Captcha) Plugin() bulrush.PNRet {
 	return func(cfg *bulrush.Config, router *gin.RouterGroup, httpProxy *gin.Engine) {
 		router.Use(func(ctx *gin.Context) {
 			if data, error := ctx.Cookie("captcha"); error == nil && data != "" {
-				decData := decrypt([]byte(data), c.Secret)
+				decData := decrypt([]byte(data), Some(c.Secret, "123abc#@%").(string))
 				dataStr := string(decData)
 				ctx.Set("captcha", dataStr)
 			}
@@ -46,7 +46,7 @@ func (c *Captcha) Plugin() bulrush.PNRet {
 				c.Config.Width = width
 			}
 			idKey, captcha := base64Captcha.GenerateCaptcha("", c.Config)
-			encryptData := encrypt([]byte(idKey), c.Secret)
+			encryptData := encrypt([]byte(idKey), Some(c.Secret, "123abc#@%").(string))
 			base64 := base64Captcha.CaptchaWriteToBase64Encoding(captcha)
 			ctx.SetCookie("captcha", string(encryptData), Some(c.Period, 60).(int), "/", "", false, false)
 			ctx.String(http.StatusOK, base64)
