@@ -1,4 +1,5 @@
 # bulrush-captcha
+Qr code generator
 ```go
 captcha := &captcha.Captcha{
     URLPrefix: "/captcha",
