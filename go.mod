@@ -1,8 +1,9 @@
-module github.com/2637309949/bulrush
+module github.com/2637309949/bulrush-captcha
 
 go 1.12
 
 require (
+	github.com/2637309949/bulrush v0.0.0-20190607030313-28d446049b76
 	github.com/gin-gonic/gin v1.4.0
 	github.com/mojocn/base64Captcha v0.0.0-20190509095025-87c9c59224d8
 )
