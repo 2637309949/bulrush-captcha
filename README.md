@@ -1,18 +1,30 @@
-# bulrush-captcha
-Qr code generator
+## bulrush-captcha
+Base64 image with given numbers
+
+### Example
+
 ```go
-captcha := &captcha.Captcha{
-    URLPrefix: "/captcha",
-    Secret:    "7658388",
-    Config: base64Captcha.ConfigDigit{
-        Height:     80,
-        Width:      240,
-        MaxSkew:    0.7,
-        DotCount:   80,
-        CaptchaLen: 5,
-    },
+func initCaptcha() *captcha.Captcha {
+	var c = captcha.New()
+	c.Secret = "7658388"
+	c.URLPrefix = "/captcha"
+	return c
 }
-code := ctx.GetString("captcha")
+// Captcha plugin init
+var Captcha = initCaptcha()
+app.Use(Captcha)
+```
+### API
+
+```go
+// set diff propertys if you want
+type Captcha struct {
+	bulrush.PNBase
+	Period    int
+	Secret    string
+	Config    base64Captcha.ConfigDigit
+	URLPrefix string
+}
 ```
 ## MIT License
 
