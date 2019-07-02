@@ -40,7 +40,7 @@ func New() *Captcha {
 }
 
 // Plugin for gin
-func (c *Captcha) Plugin() bulrush.PNRet {
+func (c *Captcha) Plugin() interface{} {
 	return func(cfg *bulrush.Config, router *gin.RouterGroup, httpProxy *gin.Engine) {
 		router.Use(func(ctx *gin.Context) {
 			if data, err := ctx.Cookie("captcha"); err == nil && data != "" {
