@@ -38,6 +38,12 @@ func New() *Captcha {
 	return c
 }
 
+// Init defined Captcha init
+func (c *Captcha) Init(init func(*Captcha)) *Captcha {
+	init(c)
+	return c
+}
+
 // Plugin for gin
 func (c *Captcha) Plugin(cfg *bulrush.Config, router *gin.RouterGroup, httpProxy *gin.Engine) {
 	router.Use(func(ctx *gin.Context) {
